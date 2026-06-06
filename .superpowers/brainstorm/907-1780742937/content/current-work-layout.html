@@ -1,0 +1,83 @@
+<h2>What layout for your "What I'm doing now" block?</h2>
+<p class="subtitle">Below the "I think about..." section — pick the layout that feels right for a brief showcase</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d1b2a;padding:20px;font-family:'Georgia',serif;">
+      <div style="text-align:center;color:#c8b89a;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">Currently</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:rgba(255,255,255,0.05);border-left:2px solid #1a7a6e;padding:10px 14px;border-radius:0 4px 4px 0;">
+          <div style="color:#f5f0e8;font-size:12px;font-weight:600;">PhD Research</div>
+          <div style="color:rgba(245,240,232,0.55);font-size:11px;margin-top:2px;">Multi-omics integration for disease biomarkers</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-left:2px solid #1a7a6e;padding:10px 14px;border-radius:0 4px 4px 0;">
+          <div style="color:#f5f0e8;font-size:12px;font-weight:600;">Teaching</div>
+          <div style="color:rgba(245,240,232,0.55);font-size:11px;margin-top:2px;">Bioinformatics workshop, Semester 2</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-left:2px solid #1a7a6e;padding:10px 14px;border-radius:0 4px 4px 0;">
+          <div style="color:#f5f0e8;font-size:12px;font-weight:600;">Reading</div>
+          <div style="color:rgba(245,240,232,0.55);font-size:11px;margin-top:2px;">Foundations of Statistical Natural Language Processing</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Vertical list with accent bars</h3>
+      <p>Dark background matching the hero. Each item is a labelled row with a teal left-border accent. Clean and minimal.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#faf8f4;padding:20px;font-family:'Georgia',serif;">
+      <div style="text-align:center;color:#5a5a5a;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;">What I'm working on</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <div style="background:#fff;border:1px solid #e8e0d4;border-radius:8px;padding:14px 16px;width:120px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="font-size:22px;margin-bottom:6px;">🔬</div>
+          <div style="color:#0d1b2a;font-size:11px;font-weight:600;">Research</div>
+          <div style="color:#5a5a5a;font-size:10px;margin-top:3px;">Multi-omics</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e0d4;border-radius:8px;padding:14px 16px;width:120px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="font-size:22px;margin-bottom:6px;">📖</div>
+          <div style="color:#0d1b2a;font-size:11px;font-weight:600;">Teaching</div>
+          <div style="color:#5a5a5a;font-size:10px;margin-top:3px;">Bioinformatics</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e8e0d4;border-radius:8px;padding:14px 16px;width:120px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="font-size:22px;margin-bottom:6px;">📚</div>
+          <div style="color:#0d1b2a;font-size:11px;font-weight:600;">Reading</div>
+          <div style="color:#5a5a5a;font-size:10px;margin-top:3px;">NLP book</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Icon cards on cream background</h3>
+      <p>Light cream background matching the page body. Three cards with emoji icons. Friendly and approachable.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#faf8f4;padding:20px;font-family:'Georgia',serif;border-top:3px solid #0d1b2a;">
+      <div style="color:#0d1b2a;font-size:18px;font-style:italic;margin-bottom:14px;text-align:center;">Now</div>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:340px;margin:0 auto;">
+        <div style="display:flex;align-items:baseline;gap:10px;">
+          <span style="color:#1a7a6e;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;min-width:64px;">Research</span>
+          <span style="color:#2c2c2c;font-size:12px;">Multi-omics integration · University of Melbourne</span>
+        </div>
+        <div style="height:1px;background:#e8e0d4;"></div>
+        <div style="display:flex;align-items:baseline;gap:10px;">
+          <span style="color:#1a7a6e;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;min-width:64px;">Teaching</span>
+          <span style="color:#2c2c2c;font-size:12px;">Bioinformatics workshop · Sem 2</span>
+        </div>
+        <div style="height:1px;background:#e8e0d4;"></div>
+        <div style="display:flex;align-items:baseline;gap:10px;">
+          <span style="color:#1a7a6e;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;min-width:64px;">Reading</span>
+          <span style="color:#2c2c2c;font-size:12px;">Foundations of Statistical NLP</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Editorial two-column rows</h3>
+      <p>Teal label on the left, description on the right. Matches the editorial luxury tone of the rest of the site. Understated and elegant.</p>
+    </div>
+  </div>
+
+</div>
