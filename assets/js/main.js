@@ -14,8 +14,8 @@ const keywords = [
   'Data Science',
   'Genomics',
   'Machine Learning',
-  'Single-cell Analysis',
-  'Computational Biology',
+  'Multi-omics',
+  'Biomechanics',
 ];
 
 const keywordEl = document.getElementById('animated-keyword');

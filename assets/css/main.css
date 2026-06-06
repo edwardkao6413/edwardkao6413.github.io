@@ -260,21 +260,21 @@ a:hover { color: var(--color-teal-400); text-decoration: none; }
 /* ── Profile Photo ── */
 .profile-photo-wrapper {
   text-align: center;
-  margin: var(--space-8) auto 0;
+  margin: 0 auto var(--space-6);
   animation: fadeUp 0.8s var(--transition-slow) 0.3s both;
 }
 
 .profile-photo {
-  width: 128px;
-  height: 128px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--color-cream-100);
-  box-shadow: var(--shadow-lg), 0 0 0 6px rgba(26, 122, 110, 0.15);
+  border: 3px solid rgba(245, 240, 232, 0.6);
+  box-shadow: var(--shadow-lg), 0 0 0 6px rgba(26, 122, 110, 0.3);
   transition: box-shadow var(--transition-normal);
 }
 .profile-photo:hover {
-  box-shadow: var(--shadow-lg), 0 0 0 8px rgba(26, 122, 110, 0.25);
+  box-shadow: var(--shadow-lg), 0 0 0 8px rgba(26, 122, 110, 0.5);
 }
 
 /* ── Animated Keyword Section ── */

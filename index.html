@@ -7,23 +7,21 @@ title: Home
 <section class="hero">
   <div class="hero__bg" id="heroBg"></div>
   <div class="hero__content">
+    <div class="profile-photo-wrapper">
+      <a href="{{ '/' | relative_url }}" id="profileLink">
+        <img
+          class="profile-photo"
+          src="{{ '/assets/img/profile.jpg' | relative_url }}"
+          alt="Edward Kao"
+          onerror="this.style.display='none'; document.getElementById('profileLink').style.display='none';"
+        />
+      </a>
+    </div>
     <h1>Hi, I'm Edward.</h1>
     <p>Data Scientist &amp; Bioinformatics Researcher</p>
   </div>
   <span class="hero__photo-credit" id="photoCredit"></span>
 </section>
-
-<!-- Profile Photo -->
-<div class="profile-photo-wrapper">
-  <a href="{{ '/' | relative_url }}" id="profileLink">
-    <img
-      class="profile-photo"
-      src="{{ '/assets/img/profile.jpg' | relative_url }}"
-      alt="Edward Kao"
-      onerror="this.style.display='none'; document.getElementById('profileLink').style.display='none';"
-    />
-  </a>
-</div>
 
 <!-- Animated Keyword Section -->
 <section class="main-content">
