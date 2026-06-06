@@ -8,7 +8,6 @@
   /* Brand colors */
   --color-navy-900:   #0d1b2a;
   --color-navy-700:   #1b3a52;
-  --color-navy-100:   #e8eef4;
 
   --color-teal-600:   #1a7a6e;
   --color-teal-400:   #2aa898;
@@ -19,7 +18,6 @@
   --color-neutral-900: #2c2c2c;
   --color-neutral-600: #5a5a5a;
   --color-neutral-300: #c8c8c8;
-  --color-neutral-100: #f4f4f4;
 
   /* Semantic aliases */
   --color-bg:       var(--color-cream-50);
@@ -31,7 +29,6 @@
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body:    'DM Sans', 'Segoe UI', sans-serif;
-  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
   /* Type scale (1.25 major third) */
   --text-xs:   0.64rem;
@@ -55,7 +52,6 @@
   --space-24: 6rem;
 
   /* Elevation */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
