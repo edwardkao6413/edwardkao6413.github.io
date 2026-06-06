@@ -1,0 +1,24 @@
+title: Edward Kao
+description: Data Scientist & Bioinformatics Researcher
+baseurl: ""
+url: "https://edwardkao6413.github.io"
+
+author:
+  name: Edward Kao
+  email: edwardkao6413@gmail.com
+  github: edwardkao6413
+
+social:
+  github: https://github.com/edwardkao6413
+
+navbar:
+  resume_url: /doc/CV_Edward.pdf
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - docs/
+  - .dev-manager/
+  - .agents/
+  - references/
+  - README.md
