@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Edward Kao</title>
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!-- Font Awesome 6.5.0 CDN — provides brand icons (fab fa-github etc.) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+  <div class="navbar__brand">
+    <a href="/">Edward Kao</a>
+  </div>
+
+  <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </button>
+
+  <ul class="navbar__links" id="navLinks">
+    <li><a href="/doc/CV_Edward.pdf" target="_blank" rel="noopener">Resume</a></li>
+    <li><a href="/publications">Publications</a></li>
+    <li><a href="/career">Career</a></li>
+    <li><a href="/other-works">Other Works</a></li>
+  </ul>
+</nav>
+
+  <main>
+    <!-- Hero Banner -->
+<section class="hero">
+  <div class="hero__bg" id="heroBg"></div>
+  <div class="hero__content">
+    <div class="profile-photo-wrapper">
+      <a href="/" id="profileLink">
+        <img
+          class="profile-photo"
+          src="/assets/img/profile.jpg"
+          alt="Edward Kao"
+          onerror="this.style.display='none'; document.getElementById('profileLink').style.display='none';"
+        />
+      </a>
+    </div>
+    <h1>Hi, I'm Edward.</h1>
+    <p>Data Scientist &amp; Bioinformatics Researcher</p>
+  </div>
+  <span class="hero__photo-credit" id="photoCredit"></span>
+</section>
+
+<!-- Animated Keyword Section -->
+<section class="main-content">
+  <p class="animated-heading">
+    I think about <strong><span id="animated-keyword"></span></strong><span class="cursor"></span>
+  </p>
+</section>
+
+  </main>
+  <footer class="site-footer">
+  <div class="footer__social">
+    <a href="https://github.com/edwardkao6413" target="_blank" rel="noopener" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <p class="footer__credit">
+    &copy; Edward Kao &bull; 2026
+  </p>
+</footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

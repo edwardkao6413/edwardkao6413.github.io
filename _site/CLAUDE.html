@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLAUDE.md — Edward Kao Personal Website | Edward Kao</title>
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!-- Font Awesome 6.5.0 CDN — provides brand icons (fab fa-github etc.) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+  <div class="navbar__brand">
+    <a href="/">Edward Kao</a>
+  </div>
+
+  <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </button>
+
+  <ul class="navbar__links" id="navLinks">
+    <li><a href="/doc/CV_Edward.pdf" target="_blank" rel="noopener">Resume</a></li>
+    <li><a href="/publications">Publications</a></li>
+    <li><a href="/career">Career</a></li>
+    <li><a href="/other-works">Other Works</a></li>
+  </ul>
+</nav>
+
+  <main>
+    <h1 id="claudemd--edward-kao-personal-website">CLAUDE.md — Edward Kao Personal Website</h1>
+
+<h2 id="project-overview">Project Overview</h2>
+
+<p>Personal academic/portfolio website for Edward Kao, hosted on GitHub Pages at <code class="language-plaintext highlighter-rouge">https://edwardkao6413.github.io</code>. Built with Jekyll (pinned to 3.9.x via <code class="language-plaintext highlighter-rouge">github-pages</code> gem), plain CSS with design tokens, and vanilla JS.</p>
+
+<h2 id="owner">Owner</h2>
+
+<ul>
+  <li><strong>Name:</strong> Edward Kao</li>
+  <li><strong>Role:</strong> Data Scientist &amp; Bioinformatics Researcher</li>
+  <li><strong>Email:</strong> edwardkao6413@gmail.com</li>
+  <li><strong>GitHub:</strong> https://github.com/edwardkao6413</li>
+</ul>
+
+<h2 id="tech-stack">Tech Stack</h2>
+
+<ul>
+  <li><strong>Static site generator:</strong> Jekyll 3.9.x (via <code class="language-plaintext highlighter-rouge">github-pages</code> gem — do NOT upgrade to Jekyll 4.x)</li>
+  <li><strong>Templating:</strong> Liquid</li>
+  <li><strong>Styling:</strong> Plain CSS with CSS custom properties (no Tailwind, no Bootstrap, no external CSS framework)</li>
+  <li><strong>JavaScript:</strong> Vanilla JS only (no React, no jQuery)</li>
+  <li><strong>Hosting:</strong> GitHub Pages, branch <code class="language-plaintext highlighter-rouge">main</code>, root <code class="language-plaintext highlighter-rouge">/</code></li>
+  <li><strong>Icons:</strong> Font Awesome 6.5.0 via CDN</li>
+</ul>
+
+<h2 id="repository-structure">Repository Structure</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+├── CLAUDE.md                # This file
+├── _config.yml              # Jekyll site-wide config
+├── Gemfile                  # Ruby gems (github-pages + webrick)
+├── index.html               # Homepage
+├── publications.md          # Publications sub-page
+├── career.md                # Career sub-page
+├── other-works.md           # Other Works sub-page
+├── _layouts/
+│   └── default.html         # Shared HTML shell
+├── _includes/
+│   ├── navbar.html          # Fixed top navbar (hamburger on mobile)
+│   └── footer.html          # Footer with social icons and copyright
+├── assets/
+│   ├── css/main.css         # All styles (design tokens + component styles)
+│   ├── js/main.js           # Navbar toggle + keyword typewriter animation
+│   └── img/                 # Images (profile.jpg goes here when ready)
+├── doc/
+│   └── CV_Edward.pdf        # Resume PDF
+├── references/
+│   └── web-structure.md     # Original site spec/template reference
+├── docs/superpowers/plans/  # Implementation plans
+├── .dev-manager/            # Dev-manager workflow state and plans
+└── .agents/                 # Local agent skills (e.g. UI-Design-Master)
+</code></pre></div></div>
+
+<h2 id="active-agents">Active Agents</h2>
+
+<ul>
+  <li><strong>UI-Design-Master</strong> — <code class="language-plaintext highlighter-rouge">.agents/UI-Design-Master/SKILL</code> — use for ALL styling, CSS, and visual design decisions. Always invoke before writing or updating CSS.</li>
+  <li><strong>dev-manager</strong> — <code class="language-plaintext highlighter-rouge">.dev-manager/workflow.md</code> — orchestrates planning, implementation, and review stages.</li>
+</ul>
+
+<h2 id="design-direction-ui-design-master-editorial-luxury--refined-restraint">Design Direction (UI-Design-Master: Editorial Luxury / Refined Restraint)</h2>
+
+<ul>
+  <li><strong>Aesthetic:</strong> Quietly confident academic portfolio — feels like a curated research monograph, not a generic dev site</li>
+  <li><strong>Tone:</strong> Editorial luxury / refined restraint</li>
+  <li><strong>Differentiation:</strong> Deep navy + warm cream palette with serif italic display font</li>
+</ul>
+
+<h3 id="color-tokens">Color Tokens</h3>
+<p>| Token | Value | Use |
+|—|—|—|
+| <code class="language-plaintext highlighter-rouge">--color-navy-900</code> | <code class="language-plaintext highlighter-rouge">#0d1b2a</code> | Navbar background, headings |
+| <code class="language-plaintext highlighter-rouge">--color-navy-700</code> | <code class="language-plaintext highlighter-rouge">#1b3a52</code> | Hover states, borders |
+| <code class="language-plaintext highlighter-rouge">--color-teal-600</code> | <code class="language-plaintext highlighter-rouge">#1a7a6e</code> | Primary accent — links, highlights, cursor |
+| <code class="language-plaintext highlighter-rouge">--color-teal-400</code> | <code class="language-plaintext highlighter-rouge">#2aa898</code> | Hover on accent elements |
+| <code class="language-plaintext highlighter-rouge">--color-cream-50</code> | <code class="language-plaintext highlighter-rouge">#faf8f4</code> | Page background |
+| <code class="language-plaintext highlighter-rouge">--color-neutral-900</code> | <code class="language-plaintext highlighter-rouge">#2c2c2c</code> | Body text |</p>
+
+<h3 id="typography">Typography</h3>
+<ul>
+  <li><strong>Display font:</strong> <code class="language-plaintext highlighter-rouge">Cormorant Garamond</code> (Google Fonts) — italic, weight 400/600</li>
+  <li><strong>Body font:</strong> <code class="language-plaintext highlighter-rouge">DM Sans</code> (Google Fonts) — weight 400/500/600</li>
+  <li><strong>Never use:</strong> Inter, Roboto, Arial as display; purple gradients; flat solid backgrounds</li>
+</ul>
+
+<h3 id="motion">Motion</h3>
+<ul>
+  <li>Hero entrance: <code class="language-plaintext highlighter-rouge">fadeUp</code> animation (0.8s, staggered per element)</li>
+  <li>One high-impact moment only — no scattered micro-animations</li>
+  <li><code class="language-plaintext highlighter-rouge">prefers-reduced-motion</code> respected (all durations set to 0.01ms)</li>
+</ul>
+
+<h3 id="accessibility">Accessibility</h3>
+<ul>
+  <li>WCAG AA: 4.5:1 contrast normal text, 3:1 large text</li>
+  <li>Touch targets ≥ 44×44px on mobile</li>
+  <li><code class="language-plaintext highlighter-rouge">focus-visible</code> outlines on all interactive elements (teal, 2px, offset 4px)</li>
+  <li><code class="language-plaintext highlighter-rouge">prefers-reduced-motion</code> media query included</li>
+</ul>
+
+<h2 id="navigation-pages">Navigation Pages</h2>
+
+<p>Each sub-page is a Jekyll Markdown file (<code class="language-plaintext highlighter-rouge">publications.md</code>, <code class="language-plaintext highlighter-rouge">career.md</code>, <code class="language-plaintext highlighter-rouge">other-works.md</code>). Jekyll compiles them into routes using the <code class="language-plaintext highlighter-rouge">permalink</code> front matter key and renders them through the <code class="language-plaintext highlighter-rouge">default.html</code> layout, so they inherit the navbar, footer, fonts, and CSS automatically. Edit the <code class="language-plaintext highlighter-rouge">.md</code> file to add content; GitHub Pages rebuilds on push.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Route</th>
+      <th>Source file</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Resume</td>
+      <td><code class="language-plaintext highlighter-rouge">/doc/CV_Edward.pdf</code></td>
+      <td><code class="language-plaintext highlighter-rouge">doc/CV_Edward.pdf</code></td>
+      <td>PDF (replace placeholder when ready)</td>
+    </tr>
+    <tr>
+      <td>Publications</td>
+      <td><code class="language-plaintext highlighter-rouge">/publications</code></td>
+      <td><code class="language-plaintext highlighter-rouge">publications.md</code></td>
+      <td>Stub — edit to add content</td>
+    </tr>
+    <tr>
+      <td>Career</td>
+      <td><code class="language-plaintext highlighter-rouge">/career</code></td>
+      <td><code class="language-plaintext highlighter-rouge">career.md</code></td>
+      <td>Stub — edit to add content</td>
+    </tr>
+    <tr>
+      <td>Other Works</td>
+      <td><code class="language-plaintext highlighter-rouge">/other-works</code></td>
+      <td><code class="language-plaintext highlighter-rouge">other-works.md</code></td>
+      <td>Stub — edit to add content</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="key-config-values-_configyml">Key Config Values (<code class="language-plaintext highlighter-rouge">_config.yml</code>)</h2>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">baseurl: ""</code> — do not change; changing it breaks all <code class="language-plaintext highlighter-rouge">| relative_url</code> links</li>
+  <li><code class="language-plaintext highlighter-rouge">navbar.resume_url: /doc/CV_Edward.pdf</code> — update when real PDF is placed</li>
+  <li><code class="language-plaintext highlighter-rouge">social.github: https://github.com/edwardkao6413</code></li>
+</ul>
+
+<h2 id="development-commands">Development Commands</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install gems (first time only)</span>
+bundle <span class="nb">install</span>
+
+<span class="c"># Local preview</span>
+bundle <span class="nb">exec </span>jekyll serve
+<span class="c"># → http://127.0.0.1:4000</span>
+
+<span class="c"># Build static output (for checking _site/)</span>
+bundle <span class="nb">exec </span>jekyll build
+</code></pre></div></div>
+
+<h2 id="important-constraints">Important Constraints</h2>
+
+<ol>
+  <li><strong>Jekyll version:</strong> The <code class="language-plaintext highlighter-rouge">github-pages</code> gem locks Jekyll to 3.9.x. Do not add Jekyll 4-only features (e.g. <code class="language-plaintext highlighter-rouge">webrick</code> is required explicitly because of Ruby 3.x compatibility).</li>
+  <li><strong>No JS frameworks:</strong> Vanilla JS only. No npm, no node_modules, no build tools.</li>
+  <li><strong>CSS architecture:</strong> All styles in <code class="language-plaintext highlighter-rouge">assets/css/main.css</code>. Use CSS custom properties (<code class="language-plaintext highlighter-rouge">--var</code>) for all tokens — no hardcoded colours or sizes outside <code class="language-plaintext highlighter-rouge">:root</code>.</li>
+  <li><strong>Exclude from build:</strong> <code class="language-plaintext highlighter-rouge">Gemfile</code>, <code class="language-plaintext highlighter-rouge">Gemfile.lock</code>, <code class="language-plaintext highlighter-rouge">docs/</code>, <code class="language-plaintext highlighter-rouge">.dev-manager/</code>, <code class="language-plaintext highlighter-rouge">.agents/</code>, <code class="language-plaintext highlighter-rouge">references/</code>, <code class="language-plaintext highlighter-rouge">README.md</code> are all in <code class="language-plaintext highlighter-rouge">_config.yml</code> exclude list — do not remove them.</li>
+  <li><strong>Resume PDF:</strong> Do not use <code class="language-plaintext highlighter-rouge">touch doc/CV_Edward.pdf</code> — it creates a zero-byte file that renders as a broken PDF. Either place a real PDF or use a disabled navbar link.</li>
+</ol>
+
+<h2 id="workflow">Workflow</h2>
+
+<p>This project follows the <code class="language-plaintext highlighter-rouge">edward-dev-workflow</code> via <code class="language-plaintext highlighter-rouge">.dev-manager/state.json</code>.</p>
+
+<p>Current state: <strong>FINALIZED</strong> — foundational structure complete and pushed to <code class="language-plaintext highlighter-rouge">origin/main</code>.</p>
+
+<p>Completed plan: <code class="language-plaintext highlighter-rouge">.dev-manager/plans/2026-06-06-personal-website-foundation.md</code></p>
+
+<p>Next content tasks (start a new plan for each):</p>
+<ul>
+  <li>Add profile photo: place <code class="language-plaintext highlighter-rouge">assets/img/profile.jpg</code></li>
+  <li>Add CV PDF: place <code class="language-plaintext highlighter-rouge">doc/CV_Edward.pdf</code></li>
+  <li>Populate <code class="language-plaintext highlighter-rouge">publications.md</code>, <code class="language-plaintext highlighter-rouge">career.md</code>, <code class="language-plaintext highlighter-rouge">other-works.md</code> with real content</li>
+</ul>
+
+  </main>
+  <footer class="site-footer">
+  <div class="footer__social">
+    <a href="https://github.com/edwardkao6413" target="_blank" rel="noopener" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <p class="footer__credit">
+    &copy; Edward Kao &bull; 2026
+  </p>
+</footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
