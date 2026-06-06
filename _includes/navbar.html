@@ -1,0 +1,18 @@
+<nav class="navbar" id="navbar">
+  <div class="navbar__brand">
+    <a href="{{ '/' | relative_url }}">Edward Kao</a>
+  </div>
+
+  <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+  </button>
+
+  <ul class="navbar__links" id="navLinks">
+    <li><a href="{{ site.navbar.resume_url | relative_url }}" target="_blank" rel="noopener">Resume</a></li>
+    <li><a href="{{ '/publications' | relative_url }}">Publications</a></li>
+    <li><a href="{{ '/career' | relative_url }}">Career</a></li>
+    <li><a href="{{ '/other-works' | relative_url }}">Other Works</a></li>
+  </ul>
+</nav>
