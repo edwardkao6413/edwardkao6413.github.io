@@ -34,21 +34,11 @@ title: Home
 <section class="now-section" aria-labelledby="now-heading">
   <h2 class="now-section__heading" id="now-heading">Now</h2>
   <div class="now-items">
+    {% for item in site.data.now %}
     <div class="now-item">
-      <span class="now-item__label">Personal Intro</span>
-      <p class="now-item__text">Coming soon.</p>
+      <span class="now-item__label">{{ item.label }}</span>
+      <p class="now-item__text">{{ item.text }}</p>
     </div>
-    <div class="now-item">
-      <span class="now-item__label">Work</span>
-      <p class="now-item__text">Coming soon.</p>
-    </div>
-    <div class="now-item">
-      <span class="now-item__label">Research</span>
-      <p class="now-item__text">Coming soon.</p>
-    </div>
-    <div class="now-item">
-      <span class="now-item__label">Side Projects</span>
-      <p class="now-item__text">Coming soon.</p>
-    </div>
+    {% endfor %}
   </div>
 </section>
