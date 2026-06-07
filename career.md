@@ -52,10 +52,8 @@ permalink: /career
             stroke="#0d1b2a" stroke-width="5" stroke-linecap="round"/>
 
       <!-- now dot + label -->
-      {% assign now_years_from_top = display_end_year | minus: end_year %}
-      {% assign now_y = now_years_from_top | times: px_per_year | plus: svg_top_pad %}
-      <circle cx="{{ spine_x }}" cy="{{ now_y }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
-      {% assign now_label_y = now_y | minus: 10 %}
+      <circle cx="{{ spine_x }}" cy="{{ svg_top_pad }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
+      {% assign now_label_y = svg_top_pad | minus: 10 %}
       <text x="{{ spine_x }}" y="{{ now_label_y }}" text-anchor="middle"
             font-family="DM Sans,sans-serif" font-size="10" font-weight="700"
             fill="#1a7a6e" letter-spacing="1.5" aria-hidden="true">NOW</text>
