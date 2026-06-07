@@ -77,7 +77,8 @@ permalink: /career
         {% assign ev_start = event.start | plus: 0 %}
         {% assign years_to_bar_top = end_year | minus: ev_end %}
         {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
-        {% assign bar_h = ev_end | minus: ev_start | times: px_per_year %}
+        {% assign bar_years = ev_end | minus: ev_start %}
+        {% assign bar_h = bar_years | times: px_per_year %}
         {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
         {% if event.layer == 1 %}
           {% assign bar_x = bar_x1 %}
