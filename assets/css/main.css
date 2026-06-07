@@ -438,6 +438,16 @@ a:hover { color: var(--color-teal-400); text-decoration: none; }
   font-size: var(--text-sm); color: var(--color-neutral-900);
   line-height: 1.4; pointer-events: none;
 }
+.tl-label__title {
+  display: block;
+  font-weight: 600;
+}
+.tl-label__desc {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-neutral-600);
+  margin-top: 1px;
+}
 .tl-legend {
   display: flex; gap: var(--space-6); flex-wrap: wrap;
   margin-bottom: var(--space-8); font-family: var(--font-body);
