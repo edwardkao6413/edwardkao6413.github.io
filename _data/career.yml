@@ -1,0 +1,18 @@
+# _data/career.yml
+# Each entry is one event bar on the career timeline.
+#
+# Fields:
+#   start:            integer — start year (e.g. 2018)
+#   end:              integer — end year (e.g. 2020)
+#   category:         work | research | education
+#   layer:            0 (default, adjacent to spine) or 1 (next track, for overlapping periods)
+#   label:            string — displayed next to the bar
+#   leader_y_offset:  0..20 px — vertical nudge for the leader line anchor (0 = top of bar + 8px)
+#
+# Example entry (uncomment and fill in to add your first event):
+# - start: 2018
+#   end: 2020
+#   category: work
+#   layer: 0
+#   label: "Job Title — Organisation Name"
+#   leader_y_offset: 0
