@@ -1,8 +1,18 @@
 - label: Personal Intro
-  text: Coming soon.
+  text: >
+    MSc Bioinformatics graduate from the University of Melbourne.
+    Originally from Taiwan, now based in Melbourne. I sit at the
+    intersection of biology, data, and software — from crop genomics, metagenomics,
+    to sports science pipelines.
+
 - label: Work
-  text: Coming soon.
+  text: Data Scientist in sports medicine industry.
+
 - label: Research
-  text: Coming soon.
+  text: >
+    Investigating biostatistics application on biomechanics and human health.
+    Previously published two 1st-author papers on multi-omics data integration
+    for soybean abiotic stress-tolerance gene discovery.
+
 - label: Side Projects
-  text: Coming soon.
+  text: Building a web app for metagenomics data analysis pipeline.
