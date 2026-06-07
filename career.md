@@ -117,7 +117,10 @@ permalink: /career
       {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
       {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
       {% assign label_top = bar_top | plus: leader_anchor | plus: leader_offset | minus: label_center_offset %}
-      <div class="tl-label" style="top:{{ label_top }}px;" aria-hidden="true">{{ event.label | escape }}</div>
+      <div class="tl-label" style="top:{{ label_top }}px;" aria-hidden="true">
+        <span class="tl-label__title">{{ event.label | escape }}</span>
+        {% if event.description %}<span class="tl-label__desc">{{ event.description | escape }}</span>{% endif %}
+      </div>
     {% endfor %}
 
   </section>
