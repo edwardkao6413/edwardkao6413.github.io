@@ -8,12 +8,9 @@ permalink: /career
 {% assign end_year = site.time | date: "%Y" | plus: 0 %}
 {% assign px_per_year = 80 %}
 {% assign svg_top_pad = 20 %}
-{% assign display_end_year = end_year | plus: 1 %}
-{% assign now_years_from_top = display_end_year | minus: end_year %}
-{% assign now_y = now_years_from_top | times: px_per_year | plus: svg_top_pad %}
-{% assign total_years = display_end_year | minus: start_year %}
+{% assign total_years = end_year | minus: start_year %}
 {% assign svg_height = total_years | times: px_per_year | plus: svg_top_pad | plus: 20 %}
-{% assign total_steps = total_years | divided_by: 2 | plus: 1 %}
+{% assign total_steps = total_years | divided_by: 2 %}
 {% assign spine_x = 54 %}
 {% assign bar_x0 = 59 %}
 {% assign bar_x0_right = 65 %}
@@ -44,7 +41,7 @@ permalink: /career
   <section class="tl-wrap" aria-label="Career timeline">
 
     <svg viewBox="0 0 680 {{ svg_height }}" width="100%" role="img"
-         aria-label="Career timeline from {{ start_year }} to {{ display_end_year }}"
+         aria-label="Career timeline from {{ start_year }} to {{ end_year }}"
          xmlns="http://www.w3.org/2000/svg">
 
       <!-- spine -->
@@ -53,28 +50,22 @@ permalink: /career
             stroke="#0d1b2a" stroke-width="5" stroke-linecap="round"/>
 
       <!-- now dot + label -->
-      <circle cx="{{ spine_x }}" cy="{{ now_y }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
-      {% assign now_label_y = now_y | minus: 10 %}
+      <circle cx="{{ spine_x }}" cy="{{ svg_top_pad }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
+      {% assign now_label_y = svg_top_pad | minus: 10 %}
       <text x="{{ spine_x }}" y="{{ now_label_y }}" text-anchor="middle"
             font-family="DM Sans,sans-serif" font-size="10" font-weight="700"
             fill="#1a7a6e" letter-spacing="1.5" aria-hidden="true">NOW</text>
 
-      <!-- year ticks: display_end_year first, then every 2 years from start_year upward -->
-      {% assign tick_x1 = spine_x | minus: 8 %}
-      {% assign tick_x2 = spine_x | plus: 3 %}
-      {% assign label_x = spine_x | minus: 12 %}
-      <line x1="{{ tick_x1 }}" y1="{{ svg_top_pad }}" x2="{{ tick_x2 }}" y2="{{ svg_top_pad }}"
-            stroke="#c8c8c8" stroke-width="1"/>
-      {% assign top_label_y = svg_top_pad | plus: 4 %}
-      <text x="{{ label_x }}" y="{{ top_label_y }}" text-anchor="end"
-            font-family="DM Sans,sans-serif" font-size="11" font-weight="600"
-            fill="#5a5a5a" aria-hidden="true">{{ display_end_year }}</text>
+      <!-- year ticks: every 2 years from start_year upward -->
       {% for i in (0..total_steps) %}
         {% assign offset = i | times: 2 %}
         {% assign tick_year = start_year | plus: offset %}
-        {% if tick_year >= display_end_year %}{% break %}{% endif %}
-        {% assign years_from_end = display_end_year | minus: tick_year %}
+        {% if tick_year > end_year %}{% break %}{% endif %}
+        {% assign years_from_end = end_year | minus: tick_year %}
         {% assign tick_y = years_from_end | times: px_per_year | plus: svg_top_pad %}
+        {% assign tick_x1 = spine_x | minus: 8 %}
+        {% assign tick_x2 = spine_x | plus: 3 %}
+        {% assign label_x = spine_x | minus: 12 %}
         {% assign label_y = tick_y | plus: 4 %}
         <line x1="{{ tick_x1 }}" y1="{{ tick_y }}" x2="{{ tick_x2 }}" y2="{{ tick_y }}"
               stroke="#c8c8c8" stroke-width="1"/>
@@ -87,7 +78,7 @@ permalink: /career
       {% for event in site.data.career %}
         {% assign ev_end = event.end | plus: 0 %}
         {% assign ev_start = event.start | plus: 0 %}
-        {% assign years_to_bar_top = display_end_year | minus: ev_end %}
+        {% assign years_to_bar_top = end_year | minus: ev_end %}
         {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
         {% assign bar_years = ev_end | minus: ev_start %}
         {% assign bar_h = bar_years | times: px_per_year %}
@@ -120,7 +111,7 @@ permalink: /career
     <!-- HTML label blocks — absolutely positioned, overlaid on SVG coordinate space -->
     {% for event in site.data.career %}
       {% assign ev_end = event.end | plus: 0 %}
-      {% assign years_to_bar_top = display_end_year | minus: ev_end %}
+      {% assign years_to_bar_top = end_year | minus: ev_end %}
       {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
       {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
       {% assign label_top = bar_top | plus: leader_anchor | plus: leader_offset | minus: label_center_offset %}
