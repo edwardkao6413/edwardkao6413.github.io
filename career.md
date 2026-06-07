@@ -12,6 +12,13 @@ permalink: /career
 {% assign svg_height = total_years | times: px_per_year | plus: svg_top_pad | plus: 20 %}
 {% assign total_steps = total_years | divided_by: 2 %}
 {% assign spine_x = 54 %}
+{% assign bar_x0 = 59 %}
+{% assign bar_x0_right = 65 %}
+{% assign bar_x1 = 69 %}
+{% assign bar_x1_right = 75 %}
+{% assign leader_anchor = 8 %}
+{% assign leader_end_x = 106 %}
+{% assign label_center_offset = 10 %}
 
 <div class="page-content">
   <h1>Career</h1>
@@ -73,11 +80,11 @@ permalink: /career
         {% assign bar_h = ev_end | minus: ev_start | times: px_per_year %}
         {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
         {% if event.layer == 1 %}
-          {% assign bar_x = 69 %}
-          {% assign bar_right = 75 %}
+          {% assign bar_x = bar_x1 %}
+          {% assign bar_right = bar_x1_right %}
         {% else %}
-          {% assign bar_x = 59 %}
-          {% assign bar_right = 65 %}
+          {% assign bar_x = bar_x0 %}
+          {% assign bar_right = bar_x0_right %}
         {% endif %}
         {% if event.category == "work" %}
           {% assign bar_color = "#1a7a6e" %}
@@ -88,9 +95,9 @@ permalink: /career
         {% endif %}
         <rect x="{{ bar_x }}" y="{{ bar_top }}" width="6" height="{{ bar_h }}"
               rx="3" fill="{{ bar_color }}"/>
-        {% assign leader_y = bar_top | plus: 8 | plus: leader_offset %}
-        <line x1="{{ bar_right }}" y1="{{ leader_y }}" x2="106" y2="{{ leader_y }}"
-              stroke="{{ bar_color }}" stroke-width="1.5" opacity="0.7"/>
+        {% assign leader_y = bar_top | plus: leader_anchor | plus: leader_offset %}
+        <line x1="{{ bar_right }}" y1="{{ leader_y }}" x2="{{ leader_end_x }}" y2="{{ leader_y }}"
+              stroke="{{ bar_color }}" stroke-width="1.5" opacity="0.7" aria-hidden="true"/>
       {% endfor %}
 
     </svg>
@@ -101,7 +108,7 @@ permalink: /career
       {% assign years_to_bar_top = end_year | minus: ev_end %}
       {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
       {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
-      {% assign label_top = bar_top | plus: 8 | plus: leader_offset | minus: 10 %}
+      {% assign label_top = bar_top | plus: leader_anchor | plus: leader_offset | minus: label_center_offset %}
       <div class="tl-label" style="top:{{ label_top }}px;" aria-hidden="true">{{ event.label | escape }}</div>
     {% endfor %}
 
