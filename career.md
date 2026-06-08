@@ -55,17 +55,20 @@ permalink: /career
 
       {% assign spine_bottom = svg_height | minus: svg_bottom_pad %}
 
+      <!-- main black spine on the left -->
+      <line x1="20" y1="{{ svg_top_pad }}" x2="20" y2="{{ spine_bottom }}"
+            stroke="#0d1b2a" stroke-width="3" stroke-linecap="round"/>
+
       <!-- ghost spines (faint full-height tracks for each lane) -->
       <line x1="{{ lane_work }}"     y1="{{ svg_top_pad }}" x2="{{ lane_work }}"     y2="{{ spine_bottom }}" stroke="#1a7a6e" stroke-width="{{ lane_w }}" stroke-linecap="round" opacity="0.08"/>
       <line x1="{{ lane_research }}" y1="{{ svg_top_pad }}" x2="{{ lane_research }}" y2="{{ spine_bottom }}" stroke="#1b3a52" stroke-width="{{ lane_w }}" stroke-linecap="round" opacity="0.08"/>
       <line x1="{{ lane_edu }}"      y1="{{ svg_top_pad }}" x2="{{ lane_edu }}"      y2="{{ spine_bottom }}" stroke="#7a4f28" stroke-width="{{ lane_w }}" stroke-linecap="round" opacity="0.08"/>
       <line x1="{{ lane_amateur }}"  y1="{{ svg_top_pad }}" x2="{{ lane_amateur }}"  y2="{{ spine_bottom }}" stroke="#6b4fa0" stroke-width="{{ lane_w }}" stroke-linecap="round" opacity="0.08"/>
 
-      <!-- now dot + label (centered over all lanes) -->
-      {% assign lanes_center = lane_work | plus: lane_amateur | divided_by: 2 %}
-      <circle cx="{{ lanes_center }}" cy="{{ svg_top_pad }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
+      <!-- now dot + label on the black spine -->
+      <circle cx="20" cy="{{ svg_top_pad }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
       {% assign now_label_y = svg_top_pad | minus: 10 %}
-      <text x="{{ lanes_center }}" y="{{ now_label_y }}" text-anchor="middle"
+      <text x="20" y="{{ now_label_y }}" text-anchor="middle"
             font-family="DM Sans,sans-serif" font-size="10" font-weight="700"
             fill="#1a7a6e" letter-spacing="1.5" aria-hidden="true">NOW</text>
 
@@ -78,9 +81,9 @@ permalink: /career
         {% assign tick_y = years_from_top | times: px_per_year | plus: svg_top_pad %}
         {% assign tick_x2 = lane_amateur | plus: 6 %}
         {% assign tick_label_y = tick_y | plus: 4 %}
-        <line x1="6" y1="{{ tick_y }}" x2="{{ tick_x2 }}" y2="{{ tick_y }}"
+        <line x1="14" y1="{{ tick_y }}" x2="{{ tick_x2 }}" y2="{{ tick_y }}"
               stroke="#c8c8c8" stroke-width="1" stroke-dasharray="2,3"/>
-        <text x="{{ year_label_x }}" y="{{ tick_label_y }}" text-anchor="end"
+        <text x="10" y="{{ tick_label_y }}" text-anchor="end"
               font-family="DM Sans,sans-serif" font-size="11" font-weight="600"
               fill="#5a5a5a" aria-hidden="true">{{ tick_year }}</text>
       {% endfor %}
