@@ -239,7 +239,7 @@ leader_y              = bar_top + leader_y_offset              (if leader_anchor
 </code></pre></div></div>
 <p>(<code class="language-plaintext highlighter-rouge">display_end_year</code> = current year + 1, <code class="language-plaintext highlighter-rouge">svg_top_pad</code> = 20, <code class="language-plaintext highlighter-rouge">px_per_year</code> = 80)</p>
 
-<p>Two labels conflict if they share the same label column <strong>and</strong> their <code class="language-plaintext highlighter-rouge">leader_y</code> values are within <strong>32px</strong> of each other. Apply this check even when events are in different columns if their labels are long enough to visually overlap horizontally.</p>
+<p>Two labels conflict if they share the same label column <strong>and</strong> their <code class="language-plaintext highlighter-rouge">leader_y</code> values are within <strong>40px</strong> of each other. <strong>Always</strong> apply the cross-column check too: if events in different columns have <code class="language-plaintext highlighter-rouge">leader_y</code> values within <strong>40px</strong> of each other, treat it as a conflict regardless of label length — labels at the same vertical band always look crowded.</p>
 
 <ul>
   <li>Left column: Education + Research</li>
@@ -247,9 +247,9 @@ leader_y              = bar_top + leader_y_offset              (if leader_anchor
 </ul>
 
 <p><strong>Step 3 — Resolve conflicts with <code class="language-plaintext highlighter-rouge">leader_y_offset</code></strong>
-If two labels in the same column are within 32px of each other, adjust <code class="language-plaintext highlighter-rouge">leader_y_offset</code> on the lower event (positive = push down) until the gap is ≥ 32px. Never use a negative offset that would pull the anchor above <code class="language-plaintext highlighter-rouge">bar_top</code>.</p>
+If two labels in the same column are within 40px of each other, adjust <code class="language-plaintext highlighter-rouge">leader_y_offset</code> on the lower event (positive = push down) until the gap is ≥ 40px. Never use a negative offset that would pull the anchor above <code class="language-plaintext highlighter-rouge">bar_top</code>.</p>
 
-<p>If two labels are in <strong>different columns but the same horizontal band</strong> (within 28px of each other) and one label is long enough to bleed into the other column, also push the lower one down.</p>
+<p>If two labels are in <strong>different columns</strong> and within <strong>40px</strong> of each other, push the lower one down until the gap is ≥ 40px. Do not assume cross-column labels are safe just because they are in different columns — at the same y they always visually collide.</p>
 
 <p><strong>Step 4 — Verify the leader line stays within the bar span</strong>
 The anchor must always fall within <code class="language-plaintext highlighter-rouge">[bar_top, bar_top + bar_h]</code>. After setting <code class="language-plaintext highlighter-rouge">leader_y_offset</code>, check:</p>

@@ -62,7 +62,7 @@
   category: education
   label: "MSc Bioinformatics — Univ. of Melbourne"
   description: "University of Melbourne, Australia"
-  leader_y_offset: 0
+  leader_y_offset: -10
 
 # ── Work ───────────────────────────────────────────────────────────────────
 - start_year: 2019
@@ -167,6 +167,16 @@
   label: "Baseball Club"
   description: "Sep 2014 – Jun 2017 · High School"
   leader_y_offset: 35
+
+- start_year: 2024
+  start_month: 3
+  end_year: 2024
+  end_month: 11
+  category: amateur
+  label: "Baseball Club"
+  description: "Mar 2024 – Nov 2024"
+  leader_anchor: top
+  leader_y_offset: 57  # anchor outside bar (bar_h=53) — MSc overlaps in time, 40px gap impossible within bar
 
 - start_year: 2017
   start_month: 9
