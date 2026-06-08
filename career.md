@@ -5,13 +5,18 @@ permalink: /career
 ---
 
 {% assign start_year = 2014 %}
+{% assign start_month = 8 %}
 {% assign end_year = site.time | date: "%Y" | plus: 0 %}
 {% assign px_per_year = 80 %}
 {% assign svg_top_pad = 20 %}
+{% assign svg_bottom_pad = 24 %}
 {% assign display_end_year = end_year | plus: 1 %}
 {% assign now_month = site.time | date: "%-m" | plus: 0 %}
 {% assign total_years = display_end_year | minus: start_year %}
-{% assign svg_height = total_years | times: px_per_year | plus: svg_top_pad | plus: 20 %}
+{% comment %}Extra px below the start_year tick to reach start_month (months into start_year * px_per_month){% endcomment %}
+{% assign extra_months = start_month | minus: 1 %}
+{% assign extra_px = extra_months | times: 80 | divided_by: 12 %}
+{% assign svg_height = total_years | times: px_per_year | plus: svg_top_pad | plus: svg_bottom_pad | plus: extra_px %}
 {% assign tick_years = end_year | minus: start_year %}
 {% assign total_steps = tick_years | divided_by: 2 %}
 {% assign spine_x = 54 %}
@@ -48,7 +53,7 @@ permalink: /career
          xmlns="http://www.w3.org/2000/svg">
 
       <!-- spine -->
-      {% assign spine_bottom = svg_height | minus: 20 %}
+      {% assign spine_bottom = svg_height | minus: svg_bottom_pad %}
       <line x1="{{ spine_x }}" y1="{{ svg_top_pad }}" x2="{{ spine_x }}" y2="{{ spine_bottom }}"
             stroke="#0d1b2a" stroke-width="5" stroke-linecap="round"/>
 
