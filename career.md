@@ -21,13 +21,14 @@ permalink: /career
 {% assign total_steps = tick_years | divided_by: 2 %}
 
 {% comment %}Lane x positions — one per category{% endcomment %}
-{% assign lane_work     = 60 %}
-{% assign lane_research = 78 %}
-{% assign lane_edu      = 96 %}
-{% assign lane_amateur  = 114 %}
+{% assign spine_x       = 50 %}
+{% assign lane_edu      = 66 %}
+{% assign lane_work     = 84 %}
+{% assign lane_research = 102 %}
+{% assign lane_amateur  = 120 %}
 {% assign lane_w        = 7 %}
-{% assign year_label_x  = 46 %}
-{% assign label_zone_x  = 130 %}
+{% assign label_left_x  = 136 %}
+{% assign label_right_x = 360 %}
 
 <div class="page-content">
   <h1>Career</h1>
@@ -49,14 +50,14 @@ permalink: /career
 
   <section class="tl-wrap" aria-label="Career timeline">
 
-    <svg viewBox="0 0 520 {{ svg_height }}" width="100%" role="img"
+    <svg viewBox="0 0 630 {{ svg_height }}" width="100%" role="img"
          aria-label="Career timeline from {{ start_year }} to {{ end_year }}"
          xmlns="http://www.w3.org/2000/svg">
 
       {% assign spine_bottom = svg_height | minus: svg_bottom_pad %}
 
       <!-- main black spine on the left -->
-      <line x1="20" y1="{{ svg_top_pad }}" x2="20" y2="{{ spine_bottom }}"
+      <line x1="{{ spine_x }}" y1="{{ svg_top_pad }}" x2="{{ spine_x }}" y2="{{ spine_bottom }}"
             stroke="#0d1b2a" stroke-width="3" stroke-linecap="round"/>
 
       <!-- ghost spines (faint full-height tracks for each lane) -->
@@ -66,13 +67,15 @@ permalink: /career
       <line x1="{{ lane_amateur }}"  y1="{{ svg_top_pad }}" x2="{{ lane_amateur }}"  y2="{{ spine_bottom }}" stroke="#6b4fa0" stroke-width="{{ lane_w }}" stroke-linecap="round" opacity="0.08"/>
 
       <!-- now dot + label on the black spine -->
-      <circle cx="20" cy="{{ svg_top_pad }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
+      <circle cx="{{ spine_x }}" cy="{{ svg_top_pad }}" r="5" fill="#1a7a6e" stroke="#faf8f4" stroke-width="2"/>
       {% assign now_label_y = svg_top_pad | minus: 10 %}
-      <text x="20" y="{{ now_label_y }}" text-anchor="middle"
+      <text x="{{ spine_x }}" y="{{ now_label_y }}" text-anchor="middle"
             font-family="DM Sans,sans-serif" font-size="10" font-weight="700"
             fill="#1a7a6e" letter-spacing="1.5" aria-hidden="true">NOW</text>
 
       <!-- year ticks + labels -->
+      {% assign tick_left_x  = spine_x | minus: 38 %}
+      {% assign tick_label_x = spine_x | minus: 6 %}
       {% for i in (0..total_steps) %}
         {% assign offset = i | times: 2 %}
         {% assign tick_year = start_year | plus: offset %}
@@ -81,9 +84,9 @@ permalink: /career
         {% assign tick_y = years_from_top | times: px_per_year | plus: svg_top_pad %}
         {% assign tick_x2 = lane_amateur | plus: 6 %}
         {% assign tick_label_y = tick_y | plus: 4 %}
-        <line x1="14" y1="{{ tick_y }}" x2="{{ tick_x2 }}" y2="{{ tick_y }}"
+        <line x1="{{ tick_left_x }}" y1="{{ tick_y }}" x2="{{ tick_x2 }}" y2="{{ tick_y }}"
               stroke="#c8c8c8" stroke-width="1" stroke-dasharray="2,3"/>
-        <text x="10" y="{{ tick_label_y }}" text-anchor="end"
+        <text x="{{ tick_label_x }}" y="{{ tick_label_y }}" text-anchor="end"
               font-family="DM Sans,sans-serif" font-size="11" font-weight="600"
               fill="#5a5a5a" aria-hidden="true">{{ tick_year }}</text>
       {% endfor %}
@@ -116,34 +119,51 @@ permalink: /career
         {% if event.category == "work" %}
           {% assign bar_x     = lane_work %}
           {% assign bar_color = "#1a7a6e" %}
+          {% assign label_x   = label_right_x %}
         {% elsif event.category == "research" %}
           {% assign bar_x     = lane_research %}
           {% assign bar_color = "#1b3a52" %}
+          {% assign label_x   = label_left_x %}
         {% elsif event.category == "education" %}
           {% assign bar_x     = lane_edu %}
           {% assign bar_color = "#7a4f28" %}
+          {% assign label_x   = label_left_x %}
         {% else %}
           {% assign bar_x     = lane_amateur %}
           {% assign bar_color = "#6b4fa0" %}
+          {% assign label_x   = label_right_x %}
         {% endif %}
 
         {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
-        {% assign leader_y  = bar_top | plus: 10 | plus: leader_offset %}
+        {% if event.leader_anchor == "top" %}
+          {% assign leader_y = bar_top | plus: leader_offset %}
+        {% else %}
+          {% assign bar_mid  = bar_h | divided_by: 2 %}
+          {% assign leader_y = bar_top | plus: bar_mid | plus: leader_offset %}
+        {% endif %}
         {% assign title_y   = leader_y | plus: 4 %}
         {% assign desc_y    = title_y  | plus: 14 %}
 
         {% assign bar_bottom = bar_top | plus: bar_h %}
         <line x1="{{ bar_x }}" y1="{{ bar_top }}" x2="{{ bar_x }}" y2="{{ bar_bottom }}"
               stroke="{{ bar_color }}" stroke-width="{{ lane_w }}" stroke-linecap="round"/>
-        <line x1="{{ bar_x }}" y1="{{ leader_y }}" x2="{{ label_zone_x }}" y2="{{ leader_y }}"
+        <line x1="{{ bar_x }}" y1="{{ leader_y }}" x2="{{ label_x }}" y2="{{ leader_y }}"
               stroke="{{ bar_color }}" stroke-width="1.2" opacity="0.6" aria-hidden="true"/>
-        <text x="{{ label_zone_x }}" y="{{ title_y }}"
+        {% if event.url %}
+        <a href="{{ event.url }}" target="_blank" rel="noopener">
+        <text x="{{ label_x }}" y="{{ title_y }}"
+              font-family="DM Sans,sans-serif" font-size="12" font-weight="600"
+              fill="{{ bar_color }}" text-decoration="underline" aria-hidden="true">{{ event.label }}</text>
+        </a>
+        {% else %}
+        <text x="{{ label_x }}" y="{{ title_y }}"
               font-family="DM Sans,sans-serif" font-size="12" font-weight="600"
               fill="#2c2c2c" aria-hidden="true">{{ event.label }}</text>
+        {% endif %}
         {% if event.description %}
-        <text x="{{ label_zone_x }}" y="{{ desc_y }}"
+        <text x="{{ label_x }}" y="{{ desc_y }}"
               font-family="DM Sans,sans-serif" font-size="10" font-weight="400"
-              fill="#7a5a3a" aria-hidden="true">{{ event.description }}</text>
+              fill="{{ bar_color }}" aria-hidden="true">{{ event.description }}</text>
         {% endif %}
       {% endfor %}
 

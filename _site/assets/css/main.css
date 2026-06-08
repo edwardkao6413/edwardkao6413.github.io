@@ -432,22 +432,6 @@ a:hover { color: var(--color-teal-400); text-decoration: none; }
 /* ── Career Timeline ── */
 .tl-wrap { position: relative; }
 .tl-wrap svg { display: block; width: 100%; height: auto; }
-.tl-label {
-  position: absolute; left: 108px; z-index: 1;
-  max-width: calc(100% - 116px); font-family: var(--font-body);
-  font-size: var(--text-sm); color: var(--color-neutral-900);
-  line-height: 1.4; pointer-events: none;
-}
-.tl-label__title {
-  display: block;
-  font-weight: 600;
-}
-.tl-label__desc {
-  display: block;
-  font-size: var(--text-xs);
-  color: var(--color-neutral-600);
-  margin-top: 1px;
-}
 .tl-legend {
   display: flex; gap: var(--space-6); flex-wrap: wrap;
   margin-bottom: var(--space-8); font-family: var(--font-body);
@@ -456,8 +440,4 @@ a:hover { color: var(--color-teal-400); text-decoration: none; }
 .tl-legend__swatch {
   display: inline-block; width: 12px; height: 12px;
   border-radius: 2px; margin-right: var(--space-1); vertical-align: middle;
-}
-
-@media (max-width: 639px) {
-  .tl-label { left: 80px; max-width: calc(100% - 88px); }
 }

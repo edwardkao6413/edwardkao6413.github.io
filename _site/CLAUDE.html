@@ -90,7 +90,7 @@
 <h2 id="active-agents">Active Agents</h2>
 
 <ul>
-  <li><strong>UI-Design-Master</strong> — <code class="language-plaintext highlighter-rouge">.agents/UI-Design-Master/SKILL</code> — use for ALL styling, CSS, and visual design decisions. Always invoke before writing or updating CSS.</li>
+  <li><strong>UI-Design-Master</strong> — <code class="language-plaintext highlighter-rouge">.agents/UI-Design-Master/SKILL</code> — use for ALL styling, CSS, and visual design decisions. <strong>Every visual change (CSS, layout, SVG styling, typography, colour, spacing) MUST be passed through this agent before implementation.</strong> Always invoke before writing or updating CSS.</li>
   <li><strong>dev-manager</strong> — <code class="language-plaintext highlighter-rouge">.dev-manager/workflow.md</code> — orchestrates planning, implementation, and review stages.</li>
 </ul>
 
@@ -164,7 +164,7 @@
       <td>Career</td>
       <td><code class="language-plaintext highlighter-rouge">/career</code></td>
       <td><code class="language-plaintext highlighter-rouge">career.md</code></td>
-      <td>Stub — edit to add content</td>
+      <td>Active — SVG timeline with month-precise bars</td>
     </tr>
     <tr>
       <td>Other Works</td>
@@ -204,21 +204,85 @@ bundle <span class="nb">exec </span>jekyll build
   <li><strong>CSS architecture:</strong> All styles in <code class="language-plaintext highlighter-rouge">assets/css/main.css</code>. Use CSS custom properties (<code class="language-plaintext highlighter-rouge">--var</code>) for all tokens — no hardcoded colours or sizes outside <code class="language-plaintext highlighter-rouge">:root</code>.</li>
   <li><strong>Exclude from build:</strong> <code class="language-plaintext highlighter-rouge">Gemfile</code>, <code class="language-plaintext highlighter-rouge">Gemfile.lock</code>, <code class="language-plaintext highlighter-rouge">docs/</code>, <code class="language-plaintext highlighter-rouge">.dev-manager/</code>, <code class="language-plaintext highlighter-rouge">.agents/</code>, <code class="language-plaintext highlighter-rouge">references/</code>, <code class="language-plaintext highlighter-rouge">README.md</code> are all in <code class="language-plaintext highlighter-rouge">_config.yml</code> exclude list — do not remove them.</li>
   <li><strong>Resume PDF:</strong> Do not use <code class="language-plaintext highlighter-rouge">touch doc/CV_Edward.pdf</code> — it creates a zero-byte file that renders as a broken PDF. Either place a real PDF or use a disabled navbar link.</li>
+  <li><strong>Visual changes:</strong> Every change to CSS, layout, SVG styling, colour, spacing, or typography MUST be reviewed by the <strong>UI-Design-Master</strong> agent before implementation. No exceptions.</li>
 </ol>
+
+<h2 id="career-timeline-architecture">Career Timeline Architecture</h2>
+
+<p>The career page (<code class="language-plaintext highlighter-rouge">career.md</code>) uses a <strong>month-precise SVG timeline</strong>:</p>
+
+<ul>
+  <li><strong>Data:</strong> <code class="language-plaintext highlighter-rouge">_data/career.yml</code> — each entry has <code class="language-plaintext highlighter-rouge">start_year</code>, <code class="language-plaintext highlighter-rouge">start_month</code>, <code class="language-plaintext highlighter-rouge">end_year</code>, <code class="language-plaintext highlighter-rouge">end_month</code> (integers 1–12), plus optional <code class="language-plaintext highlighter-rouge">present: true</code> for ongoing roles.</li>
+  <li><strong>Math:</strong> <code class="language-plaintext highlighter-rouge">months_from_top(year, month) = (display_end_year − year) × 12 − (month − 1)</code>. Always multiply before dividing (<code class="language-plaintext highlighter-rouge">months × 80 / 12</code>) to avoid Liquid integer truncation.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">present: true</code>:</strong> Sets <code class="language-plaintext highlighter-rouge">bar_top = svg_top_pad</code> directly, pinning the bar to the NOW dot. Do not compute <code class="language-plaintext highlighter-rouge">bar_top</code> via the month formula for present events.</li>
+  <li><strong>Labels:</strong> Rendered as SVG <code class="language-plaintext highlighter-rouge">&lt;text&gt;</code> elements inside the viewBox (not HTML overlays), so they scale correctly at all viewport widths.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">start_year</code> / <code class="language-plaintext highlighter-rouge">start_month</code>:</strong> Declared at the top of <code class="language-plaintext highlighter-rouge">career.md</code>. If the earliest event changes, update both variables so <code class="language-plaintext highlighter-rouge">svg_height</code> and the spine extend far enough.</li>
+  <li><strong>Two label columns:</strong> Education + Research labels go to the left column (<code class="language-plaintext highlighter-rouge">label_left_x = 136</code>); Work + Amateur Interest labels go to the right column (<code class="language-plaintext highlighter-rouge">label_right_x = 290</code>). This structurally prevents most cross-category overlaps.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">leader_y_offset</code>:</strong> Integer px nudge from the bar midpoint (<code class="language-plaintext highlighter-rouge">0</code> = exact midpoint of bar; positive = push down; negative = push up). Use this to resolve same-column clashes manually after adding events. Mid-bar anchoring means no special correction is needed for short or single-month bars.</li>
+</ul>
+
+<h3 id="mandatory-procedure-for-adding-events-to-_datacareeryml">Mandatory procedure for adding events to <code class="language-plaintext highlighter-rouge">_data/career.yml</code></h3>
+
+<p>Follow these steps in order every time a new event is added. Do not skip steps.</p>
+
+<p><strong>Step 1 — Add the entry to <code class="language-plaintext highlighter-rouge">career.yml</code></strong>
+Add the new event with correct <code class="language-plaintext highlighter-rouge">start_year</code>, <code class="language-plaintext highlighter-rouge">start_month</code>, <code class="language-plaintext highlighter-rouge">end_year</code>, <code class="language-plaintext highlighter-rouge">end_month</code> (or <code class="language-plaintext highlighter-rouge">present: true</code>), <code class="language-plaintext highlighter-rouge">category</code>, <code class="language-plaintext highlighter-rouge">label</code>, <code class="language-plaintext highlighter-rouge">description</code>, and <code class="language-plaintext highlighter-rouge">leader_y_offset: 0</code>.</p>
+
+<p><strong>Step 2 — Compute the label y-position for the new event and check for clashes and crowding</strong></p>
+
+<p>The label anchor y for a given event:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bar_top (non-present) = ((display_end_year − end_year) × 12 − end_month + 1) × 80 / 12 + 20
+bar_top (present)     = 20
+bar_mid               = bar_h / 2   where bar_h = duration_months × 80 / 12
+leader_y              = bar_top + bar_mid + leader_y_offset   (default anchor: midpoint)
+leader_y              = bar_top + leader_y_offset              (if leader_anchor: top)
+</code></pre></div></div>
+<p>(<code class="language-plaintext highlighter-rouge">display_end_year</code> = current year + 1, <code class="language-plaintext highlighter-rouge">svg_top_pad</code> = 20, <code class="language-plaintext highlighter-rouge">px_per_year</code> = 80)</p>
+
+<p>Two labels conflict if they share the same label column <strong>and</strong> their <code class="language-plaintext highlighter-rouge">leader_y</code> values are within <strong>32px</strong> of each other. Apply this check even when events are in different columns if their labels are long enough to visually overlap horizontally.</p>
+
+<ul>
+  <li>Left column: Education + Research</li>
+  <li>Right column: Work + Amateur Interest</li>
+</ul>
+
+<p><strong>Step 3 — Resolve conflicts with <code class="language-plaintext highlighter-rouge">leader_y_offset</code></strong>
+If two labels in the same column are within 32px of each other, adjust <code class="language-plaintext highlighter-rouge">leader_y_offset</code> on the lower event (positive = push down) until the gap is ≥ 32px. Never use a negative offset that would pull the anchor above <code class="language-plaintext highlighter-rouge">bar_top</code>.</p>
+
+<p>If two labels are in <strong>different columns but the same horizontal band</strong> (within 28px of each other) and one label is long enough to bleed into the other column, also push the lower one down.</p>
+
+<p><strong>Step 4 — Verify the leader line stays within the bar span</strong>
+The anchor must always fall within <code class="language-plaintext highlighter-rouge">[bar_top, bar_top + bar_h]</code>. After setting <code class="language-plaintext highlighter-rouge">leader_y_offset</code>, check:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>anchor_y = bar_top + bar_mid + leader_y_offset        (default)
+anchor_y = bar_top + leader_y_offset                  (leader_anchor: top)
+
+Must satisfy: bar_top ≤ anchor_y ≤ bar_top + bar_h
+</code></pre></div></div>
+
+<p>The maximum safe positive offset from midpoint = <code class="language-plaintext highlighter-rouge">bar_h - bar_mid = bar_h / 2</code>.
+The maximum safe negative offset from midpoint = <code class="language-plaintext highlighter-rouge">-bar_mid = -(bar_h / 2)</code>.</p>
+
+<p>If resolving a clash forces <code class="language-plaintext highlighter-rouge">leader_y_offset</code> beyond these bounds — meaning the two bars are so close there is no room to separate the labels while keeping both anchors on their bars — prefer pushing the lower label below the lower bar’s bottom (<code class="language-plaintext highlighter-rouge">anchor_y &gt; bar_top + bar_h</code> is acceptable as a last resort) rather than letting labels overlap. Document this exception with a comment in <code class="language-plaintext highlighter-rouge">career.yml</code>.</p>
 
 <h2 id="workflow">Workflow</h2>
 
 <p>This project follows the <code class="language-plaintext highlighter-rouge">edward-dev-workflow</code> via <code class="language-plaintext highlighter-rouge">.dev-manager/state.json</code>.</p>
 
-<p>Current state: <strong>FINALIZED</strong> — foundational structure complete and pushed to <code class="language-plaintext highlighter-rouge">origin/main</code>.</p>
+<p>Current state: <strong>DEVELOPING</strong> — career timeline month-precision implemented.</p>
 
-<p>Completed plan: <code class="language-plaintext highlighter-rouge">.dev-manager/plans/2026-06-06-personal-website-foundation.md</code></p>
+<p>Completed plans:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.dev-manager/plans/2026-06-06-personal-website-foundation.md</code></li>
+  <li><code class="language-plaintext highlighter-rouge">.dev-manager/plans/2026-06-08-timeline-month-precision.md</code></li>
+</ul>
 
 <p>Next content tasks (start a new plan for each):</p>
 <ul>
   <li>Add profile photo: place <code class="language-plaintext highlighter-rouge">assets/img/profile.jpg</code></li>
   <li>Add CV PDF: place <code class="language-plaintext highlighter-rouge">doc/CV_Edward.pdf</code></li>
-  <li>Populate <code class="language-plaintext highlighter-rouge">publications.md</code>, <code class="language-plaintext highlighter-rouge">career.md</code>, <code class="language-plaintext highlighter-rouge">other-works.md</code> with real content</li>
+  <li>Populate <code class="language-plaintext highlighter-rouge">publications.md</code> and <code class="language-plaintext highlighter-rouge">other-works.md</code> with real content</li>
+  <li>Add Research / Amateur Interest entries to <code class="language-plaintext highlighter-rouge">_data/career.yml</code></li>
 </ul>
 
   </main>
