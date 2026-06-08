@@ -92,10 +92,10 @@
   leader_y_offset: 0
 
 - start_year: 2025
-  start_month: 9
+  start_month: 6
   present: true
   category: work
   layer: 0
   label: "Data Scientist — Centaur Institute"
-  description: "Sep 2025 – Present · Richmond VIC"
+  description: "Jun 2025 – Present · Richmond VIC"
   leader_y_offset: 0
