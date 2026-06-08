@@ -13,7 +13,7 @@ permalink: /career
 {% assign display_end_year = end_year | plus: 1 %}
 {% assign now_month = site.time | date: "%-m" | plus: 0 %}
 {% assign total_years = display_end_year | minus: start_year %}
-{% comment %}Extra px below the start_year tick to reach start_month (months into start_year * px_per_month){% endcomment %}
+{% comment %}Extra px below start_year Jan tick to reach start_month (start_month-1 months * px_per_month){% endcomment %}
 {% assign extra_months = start_month | minus: 1 %}
 {% assign extra_px = extra_months | times: 80 | divided_by: 12 %}
 {% assign svg_height = total_years | times: px_per_year | plus: svg_top_pad | plus: svg_bottom_pad | plus: extra_px %}
@@ -93,14 +93,16 @@ permalink: /career
         {% endif %}
         {% assign ev_start_year  = event.start_year  | plus: 0 %}
         {% assign ev_start_month = event.start_month | plus: 0 %}
-        {% comment %}Multiply first, divide last — never compute 80/12 directly (truncates to 6){% endcomment %}
+        {% comment %}
+          months_from_top(year, month) = (display_end_year - year)*12 - (month - 1)
+          Jan of display_end_year = 0, Dec of display_end_year-1 = 1, Jan of display_end_year-1 = 12
+          Multiply before dividing to avoid Liquid integer truncation of 80/12=6.
+        {% endcomment %}
         {% assign end_years_gap    = display_end_year | minus: ev_end_year %}
-        {% assign end_month_gap    = 12 | minus: ev_end_month %}
-        {% assign end_total_months = end_years_gap | times: 12 | plus: end_month_gap %}
+        {% assign end_total_months = end_years_gap | times: 12 | minus: ev_end_month | plus: 1 %}
         {% assign bar_top = end_total_months | times: 80 | divided_by: 12 | plus: svg_top_pad %}
-        {% assign dur_years       = ev_end_year  | minus: ev_start_year %}
-        {% assign dur_months      = ev_end_month | minus: ev_start_month %}
-        {% assign duration_months = dur_years | times: 12 | plus: dur_months %}
+        {% assign start_total_months = display_end_year | minus: ev_start_year | times: 12 | minus: ev_start_month | plus: 1 %}
+        {% assign duration_months = start_total_months | minus: end_total_months %}
         {% assign bar_h = duration_months | times: 80 | divided_by: 12 %}
         {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
         {% if event.layer == 1 %}
