@@ -9,6 +9,7 @@ permalink: /career
 {% assign px_per_year = 80 %}
 {% assign svg_top_pad = 20 %}
 {% assign display_end_year = end_year | plus: 1 %}
+{% assign now_month = site.time | date: "%-m" | plus: 0 %}
 {% assign total_years = display_end_year | minus: start_year %}
 {% assign svg_height = total_years | times: px_per_year | plus: svg_top_pad | plus: 20 %}
 {% assign tick_years = end_year | minus: start_year %}
@@ -78,12 +79,24 @@ permalink: /career
 
       <!-- event bars and leader lines -->
       {% for event in site.data.career %}
-        {% assign ev_end = event.end | plus: 0 %}
-        {% assign ev_start = event.start | plus: 0 %}
-        {% assign years_to_bar_top = display_end_year | minus: ev_end %}
-        {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
-        {% assign bar_years = ev_end | minus: ev_start %}
-        {% assign bar_h = bar_years | times: px_per_year %}
+        {% if event.present %}
+          {% assign ev_end_year  = end_year %}
+          {% assign ev_end_month = now_month %}
+        {% else %}
+          {% assign ev_end_year  = event.end_year  | plus: 0 %}
+          {% assign ev_end_month = event.end_month | plus: 0 %}
+        {% endif %}
+        {% assign ev_start_year  = event.start_year  | plus: 0 %}
+        {% assign ev_start_month = event.start_month | plus: 0 %}
+        {% comment %}Multiply first, divide last — never compute 80/12 directly (truncates to 6){% endcomment %}
+        {% assign end_years_gap    = display_end_year | minus: ev_end_year %}
+        {% assign end_month_gap    = 12 | minus: ev_end_month %}
+        {% assign end_total_months = end_years_gap | times: 12 | plus: end_month_gap %}
+        {% assign bar_top = end_total_months | times: 80 | divided_by: 12 | plus: svg_top_pad %}
+        {% assign dur_years       = ev_end_year  | minus: ev_start_year %}
+        {% assign dur_months      = ev_end_month | minus: ev_start_month %}
+        {% assign duration_months = dur_years | times: 12 | plus: dur_months %}
+        {% assign bar_h = duration_months | times: 80 | divided_by: 12 %}
         {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
         {% if event.layer == 1 %}
           {% assign bar_x = bar_x1 %}
@@ -112,11 +125,19 @@ permalink: /career
 
     <!-- HTML label blocks — absolutely positioned, overlaid on SVG coordinate space -->
     {% for event in site.data.career %}
-      {% assign ev_end = event.end | plus: 0 %}
-      {% assign years_to_bar_top = display_end_year | minus: ev_end %}
-      {% assign bar_top = years_to_bar_top | times: px_per_year | plus: svg_top_pad %}
-      {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
-      {% assign label_top = bar_top | plus: leader_anchor | plus: leader_offset | minus: label_center_offset %}
+      {% if event.present %}
+        {% assign ev_end_year  = end_year %}
+        {% assign ev_end_month = now_month %}
+      {% else %}
+        {% assign ev_end_year  = event.end_year  | plus: 0 %}
+        {% assign ev_end_month = event.end_month | plus: 0 %}
+      {% endif %}
+      {% assign end_years_gap    = display_end_year | minus: ev_end_year %}
+      {% assign end_month_gap    = 12 | minus: ev_end_month %}
+      {% assign end_total_months = end_years_gap | times: 12 | plus: end_month_gap %}
+      {% assign bar_top          = end_total_months | times: 80 | divided_by: 12 | plus: svg_top_pad %}
+      {% assign leader_offset    = event.leader_y_offset | default: 0 | plus: 0 %}
+      {% assign label_top        = bar_top | plus: leader_anchor | plus: leader_offset | minus: label_center_offset %}
       <div class="tl-label" style="top:{{ label_top }}px;" aria-hidden="true">
         <span class="tl-label__title">{{ event.label | escape }}</span>
         {% if event.description %}<span class="tl-label__desc">{{ event.description | escape }}</span>{% endif %}

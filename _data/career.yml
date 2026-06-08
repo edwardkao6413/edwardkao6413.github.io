@@ -2,19 +2,100 @@
 # Each entry is one event bar on the career timeline.
 #
 # Fields:
-#   start:            integer — start year (e.g. 2018)
-#   end:              integer — end year (e.g. 2020)
+#   start_year:       integer — start year  (e.g. 2021)
+#   start_month:      integer 1–12 — start month (e.g. 9 for September)
+#   end_year:         integer — end year  (omit or ignored when present: true)
+#   end_month:        integer 1–12 — end month (omit or ignored when present: true)
+#   present:          true — if omitted or false, end_year/end_month are used
 #   category:         work | research | education | amateur
 #   layer:            0 (default, adjacent to spine) or 1 (next track, for overlapping periods)
 #   label:            string — displayed on line 1 of the label (required)
 #   description:      string (optional) — displayed on line 2 of the label, smaller and muted
 #   leader_y_offset:  0..20 px — vertical nudge for the leader line anchor (0 = top of bar + 8px)
 #
-# Example entry (uncomment and fill in to add your first event):
-# - start: 2018
-#   end: 2020
-#   category: work          # work | research | education | amateur
+# VALIDATION RULES (no runtime enforcement — check by hand):
+#   - All month fields must be bare integers 1–12 (no quotes, no leading zeros)
+#   - For non-present entries: end must be chronologically >= start
+#   - present: true overrides end_year/end_month with the build-time current date
+#
+# Example:
+# - start_year: 2021
+#   start_month: 9
+#   end_year: 2022
+#   end_month: 6
+#   category: work
 #   layer: 0
 #   label: "Job Title — Organisation Name"
 #   description: "Optional subtitle or detail"
 #   leader_y_offset: 0
+
+# ── Education ──────────────────────────────────────────────────────────────
+- start_year: 2014
+  start_month: 8
+  end_year: 2017
+  end_month: 6
+  category: education
+  layer: 0
+  label: "High School — NCCU Affiliated HS"
+  description: "Science track · Biology & Chemistry"
+  leader_y_offset: 0
+
+- start_year: 2017
+  start_month: 9
+  end_year: 2021
+  end_month: 8
+  category: education
+  layer: 0
+  label: "BSc Agronomy & Crop Science — NCHU"
+  description: "National Chung Hsing University, Taiwan"
+  leader_y_offset: 0
+
+- start_year: 2023
+  start_month: 7
+  end_year: 2025
+  end_month: 7
+  category: education
+  layer: 0
+  label: "MSc Bioinformatics — Univ. of Melbourne"
+  description: "University of Melbourne, Australia"
+  leader_y_offset: 0
+
+# ── Work ───────────────────────────────────────────────────────────────────
+- start_year: 2021
+  start_month: 11
+  end_year: 2022
+  end_month: 1
+  category: work
+  layer: 1
+  label: "Clerk — 統一超商 (7-Eleven)"
+  description: "Nov 2021 – Jan 2022 · Taipei, Taiwan"
+  leader_y_offset: 0
+
+- start_year: 2022
+  start_month: 8
+  end_year: 2023
+  end_month: 3
+  category: work
+  layer: 0
+  label: "Business Analyst — DBS Bank"
+  description: "Aug 2022 – Mar 2023 · Taipei, Taiwan"
+  leader_y_offset: 0
+
+- start_year: 2023
+  start_month: 3
+  end_year: 2023
+  end_month: 6
+  category: work
+  layer: 1
+  label: "Clerk — 統一超商 (7-Eleven)"
+  description: "Mar 2023 – Jun 2023 · Taipei, Taiwan"
+  leader_y_offset: 0
+
+- start_year: 2025
+  start_month: 9
+  present: true
+  category: work
+  layer: 0
+  label: "Data Scientist — Centaur Institute"
+  description: "Sep 2025 – Present · Richmond VIC"
+  leader_y_offset: 0
