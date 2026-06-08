@@ -98,9 +98,14 @@ permalink: /career
           Jan of display_end_year = 0, Dec of display_end_year-1 = 1, Jan of display_end_year-1 = 12
           Multiply before dividing to avoid Liquid integer truncation of 80/12=6.
         {% endcomment %}
-        {% assign end_years_gap    = display_end_year | minus: ev_end_year %}
-        {% assign end_total_months = end_years_gap | times: 12 | minus: ev_end_month | plus: 1 %}
-        {% assign bar_top = end_total_months | times: 80 | divided_by: 12 | plus: svg_top_pad %}
+        {% if event.present %}
+          {% assign bar_top = svg_top_pad %}
+          {% assign end_total_months = 0 %}
+        {% else %}
+          {% assign end_years_gap    = display_end_year | minus: ev_end_year %}
+          {% assign end_total_months = end_years_gap | times: 12 | minus: ev_end_month | plus: 1 %}
+          {% assign bar_top = end_total_months | times: 80 | divided_by: 12 | plus: svg_top_pad %}
+        {% endif %}
         {% assign start_total_months = display_end_year | minus: ev_start_year | times: 12 | minus: ev_start_month | plus: 1 %}
         {% assign duration_months = start_total_months | minus: end_total_months %}
         {% assign bar_h = duration_months | times: 80 | divided_by: 12 %}
