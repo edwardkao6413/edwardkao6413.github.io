@@ -124,15 +124,15 @@ permalink: /career
           {% assign bar_color = "#6b4fa0" %}
         {% endif %}
 
-        {% assign bar_right = bar_x | plus: lane_w %}
         {% assign leader_offset = event.leader_y_offset | default: 0 | plus: 0 %}
         {% assign leader_y  = bar_top | plus: 10 | plus: leader_offset %}
         {% assign title_y   = leader_y | plus: 4 %}
         {% assign desc_y    = title_y  | plus: 14 %}
 
-        <rect x="{{ bar_x }}" y="{{ bar_top }}" width="{{ lane_w }}" height="{{ bar_h }}"
-              rx="3" fill="{{ bar_color }}"/>
-        <line x1="{{ bar_right }}" y1="{{ leader_y }}" x2="{{ label_zone_x }}" y2="{{ leader_y }}"
+        {% assign bar_bottom = bar_top | plus: bar_h %}
+        <line x1="{{ bar_x }}" y1="{{ bar_top }}" x2="{{ bar_x }}" y2="{{ bar_bottom }}"
+              stroke="{{ bar_color }}" stroke-width="{{ lane_w }}" stroke-linecap="round"/>
+        <line x1="{{ bar_x }}" y1="{{ leader_y }}" x2="{{ label_zone_x }}" y2="{{ leader_y }}"
               stroke="{{ bar_color }}" stroke-width="1.2" opacity="0.6" aria-hidden="true"/>
         <text x="{{ label_zone_x }}" y="{{ title_y }}"
               font-family="DM Sans,sans-serif" font-size="12" font-weight="600"
